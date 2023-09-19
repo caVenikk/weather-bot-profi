@@ -1,6 +1,11 @@
+import time
+from datetime import datetime
+
 import requests
 import telebot
+from requests.exceptions import ConnectionError, ReadTimeout
 from telebot.types import InlineKeyboardMarkup
+from urllib3.exceptions import ReadTimeoutError, TimeoutError
 
 from config import TOKEN, APPID
 
@@ -62,5 +67,12 @@ def handle_callback_query(call):
         )
 
 
-print("Running")
-bot.polling()
+if __name__ == "__main__":
+    print("Running")
+    while True:
+        try:
+            bot.infinity_polling(timeout=10, long_polling_timeout=5)
+        except (ConnectionError, ReadTimeout, ReadTimeoutError, TimeoutError) as e:
+            print(datetime.now(), e)
+            time.sleep(5)
+            continue
