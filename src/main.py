@@ -68,7 +68,7 @@ def handle_callback_query(call):
 
 
 if __name__ == "__main__":
-    print("Running")
+    print(f"{datetime.now()} | Running")
     while True:
         try:
             bot.infinity_polling(timeout=10, long_polling_timeout=5)
