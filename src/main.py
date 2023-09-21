@@ -73,6 +73,7 @@ if __name__ == "__main__":
         try:
             bot.infinity_polling(timeout=10, long_polling_timeout=5)
         except (ConnectionError, ReadTimeout, ReadTimeoutError, TimeoutError) as e:
-            print(datetime.now(), e)
+            if "traceback" not in e:
+                print(f"{datetime.now()} | {e}")
             time.sleep(5)
             continue
